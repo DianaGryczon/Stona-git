@@ -3,7 +3,7 @@
 Strona z galerią zdjęć z automatycznym deploymentem na GitHub Pages.
 
 ## Link do strony
-[https://dianagryczon.github.io/stona-git/](https://dianagryczon.github.io/stona-git/)
+[https://dianagryczon.github.io/Stona-git/](https://dianagryczon.github.io/Stona-git/)
 
 ## Technologie
 
