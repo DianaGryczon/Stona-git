@@ -1,29 +1,47 @@
 name: Deploy
 
 on:
-  push:
-    branches: [ main ]
+ push:
+   branches: [ main ]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+ contents: read
+ pages: write
+ id-token: write
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./
-        
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+ test:
+   runs-on: ubuntu-latest
+   steps:
+   - name: Checkout
+     uses: actions/checkout@v4
+     
+   - name: Test zdjęć
+     run: |
+       echo "Sprawdzanie zdjęć..."
+       test -f images/zdj1.png
+       test -f images/zdj2.png
+       test -f images/zdj3.png
+       test -f images/zdj4.png
+       test -f images/zdj5.png
+       test -f images/zdj6.png
+       echo "Wszystkie 6 zdjęć OK!"
+
+ deploy:
+   needs: test
+   runs-on: ubuntu-latest
+   environment:
+     name: github-pages
+     url: ${{ steps.deployment.outputs.page_url }}
+   steps:
+   - name: Checkout
+     uses: actions/checkout@v4
+     
+   - name: Upload Pages artifact
+     uses: actions/upload-pages-artifact@v3
+     with:
+       path: ./
+       
+   - name: Deploy to GitHub Pages
+     id: deployment
+     uses: actions/deploy-pages@v4
